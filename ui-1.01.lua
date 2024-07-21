@@ -4,7 +4,7 @@
 --------------------------------------------------------------------------------
 
 print(get_user_key())
-
+print("loading ui")
 if gethui():FindFirstChild("AppleWareiOS") then
     gethui():FindFirstChild("AppleWareiOS"):Destroy()
 end
