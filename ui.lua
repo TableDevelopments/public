@@ -1,3 +1,16 @@
+--------------------------------------------------------------------------------
+----------------------------[] Apple-Ware []-----------------------------
+----------------------------[] V/1.0.1 []-----------------------------------
+--------------------------------------------------------------------------------
+
+if gethui():FindFirstChild("AppleWareiOS") then
+    gethui():FindFirstChild("AppleWareiOS"):Destroy()
+end
+
+if gethui():FindFirstChild("MAIN_KEY") then
+    gethui():FindFirstChild("MAIN_KEY"):Destroy()
+end 
+
 local AppleWareiOS = Instance.new("ScreenGui")
 local Menu = Instance.new("Frame")
 local Header = Instance.new("Frame")
@@ -8,7 +21,7 @@ local CTCzone = Instance.new("ImageButton")
 local AppleWare = Instance.new("TextLabel")
 local AWlogo = Instance.new("ImageLabel")
 local versionBG = Instance.new("Frame")
-local V002 = Instance.new("TextLabel")
+local version_label = Instance.new("TextLabel")
 local UIGradient_2 = Instance.new("UIGradient")
 local UICorner_2 = Instance.new("UICorner")
 local ios = Instance.new("TextLabel")
@@ -29,14 +42,14 @@ local PlanInfo = Instance.new("Frame")
 local PlanTypeLabel = Instance.new("TextLabel")
 local UIGradient_7 = Instance.new("UIGradient")
 local UICorner_4 = Instance.new("UICorner")
-local PREMIUM_BADGE_ICON = Instance.new("ImageButton")
+local PREMIUM_BADGE_ICON = Instance.new("ImageLabel")
 local separator = Instance.new("Frame")
 local UIGradient_8 = Instance.new("UIGradient")
 local KeyStatus = Instance.new("TextLabel")
 local expirationLabel = Instance.new("TextLabel")
 local keyStatusInfoLabel = Instance.new("TextLabel")
 local UIGradient_9 = Instance.new("UIGradient")
-local retoreKey = Instance.new("Frame")
+local restoreKey = Instance.new("TextButton")
 local restoreKeyLabel = Instance.new("TextLabel")
 local timeIcon = Instance.new("ImageLabel")
 local UIGradient_10 = Instance.new("UIGradient")
@@ -57,10 +70,10 @@ local UICorner_8 = Instance.new("UICorner")
 local hwidLabel = Instance.new("TextButton")
 local UICorner_9 = Instance.new("UICorner")
 local KEYdecFrame = Instance.new("ImageLabel")
+local KEYdecBlank = Instance.new("Frame")
 local _100 = Instance.new("TextLabel")
 local UICorner_10 = Instance.new("UICorner")
 local Frame6 = Instance.new("ImageLabel")
-local Glow = Instance.new("ImageLabel")
 local Featured = Instance.new("Frame")
 local Advertisement = Instance.new("TextLabel")
 local separator3 = Instance.new("Frame")
@@ -205,13 +218,14 @@ end
 local UserData = {
 USERNAME = playersService.Name,
 DISPLAY_NAME = playersService.DisplayName,
-HWID = gethwid()
+HWID = gethwid(),
+VERSION = game:HttpGet('https://raw.githubusercontent.com/TakeModzz/Apple-Ware-UI/main/latest_ver.lua', true)
 }
 
 local utils = {
 newidentity = function(length)
 length = length or 10
-    local charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    local charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$&_-()=%*':/!?+[]{}<>^¡`;÷\|¦¬"
     local identity = ""
     
     math.randomseed(os.time())
@@ -280,10 +294,14 @@ end
 end,
 
  MainToggle = Instance.new("ImageButton"), -- temp
- tglCorner = Instance.new("UICorner") 
+ tglCorner = Instance.new("UICorner"),
+ 
+ UICorner_10 = Instance.new("UICorner")
 }
 
 AppleWareiOS.Name = "AppleWare iOS"
+AppleWareiOS.ResetOnSpawn = false
+AppleWareiOS.DisplayOrder = 99
 AppleWareiOS.Parent = gethui()
 
 utils.MainToggle.Name = "MainToggle"
@@ -379,17 +397,18 @@ versionBG.BorderSizePixel = 0
 versionBG.Position = UDim2.new(0, 143, 0.200000003, 1)
 versionBG.Size = UDim2.new(0, 63, 0, 15)
 
-V002.Name = "V0.1"
-V002.Parent = versionBG
-V002.BackgroundTransparency = 1.000
-V002.BorderColor3 = Color3.fromRGB(27, 42, 53)
-V002.BorderSizePixel = 0
-V002.Position = UDim2.new(0, 0, 0, 1)
-V002.Size = UDim2.new(0, 63, 1, 0)
-V002.FontFace =  Font.new("rbxassetid://11702779409", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-V002.Text = "V0.0.1"
-V002.TextColor3 = Color3.fromRGB(235, 235, 235)
-V002.TextSize = 14
+version_label.Name = "version_label"
+version_label.Parent = versionBG
+version_label.BackgroundTransparency = 1.000
+version_label.BorderColor3 = Color3.fromRGB(27, 42, 53)
+version_label.BorderSizePixel = 0
+version_label.Position = UDim2.new(0, 0, 0, 1)
+version_label.Size = UDim2.new(0, 63, 1, 0)
+version_label.FontFace =  Font.new("rbxassetid://11702779409", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+version_label.Text = "V" .. UserData.VERSION
+version_label.TextColor3 = Color3.fromRGB(235, 235, 235)
+version_label.TextSize = 14
+version_label.TextYAlignment = Enum.TextYAlignment.Top
 
 UIGradient_2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(185, 51, 156)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(201, 70, 117))}
 UIGradient_2.Parent = versionBG
@@ -489,24 +508,16 @@ PlayerDisplayName.TextColor3 = Color3.fromRGB(255, 255, 255)
 PlayerDisplayName.TextSize = 20.000
 PlayerDisplayName.TextXAlignment = Enum.TextXAlignment.Left
 PlayerDisplayName.TextYAlignment = Enum.TextYAlignment.Top
+PlayerDisplayName.TextTruncate = Enum.TextTruncate.AtEnd
 
 UIGradient_4.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(239, 27, 154)), ColorSequenceKeypoint.new(0.41, Color3.fromRGB(240, 14, 68)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(242, 13, 95))}
 UIGradient_4.Rotation = 1.8309999704360962
 UIGradient_4.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.41, 0.00), NumberSequenceKeypoint.new(1.00, 0.00)}
 UIGradient_4.Parent = PlayerDisplayName
 
-KeyTime.Name = "KeyTime"
-KeyTime.Parent = Section1
-KeyTime.BackgroundTransparency = 1.000
-KeyTime.BorderColor3 = Color3.fromRGB(27, 42, 53)
-KeyTime.BorderSizePixel = 0
-KeyTime.Position = UDim2.new(0, 75, 0, 80)
-KeyTime.Size = UDim2.new(0, 155, 0, 15)
-KeyTime.FontFace =  Font.new("rbxassetid://11702779409", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-KeyTime.Text = "23h - 59m"
-KeyTime.TextColor3 = Color3.fromRGB(255, 255, 255)
-KeyTime.TextSize = 15.000
-KeyTime.TextXAlignment = Enum.TextXAlignment.Left
+
+
+
 
 UIGradient_5.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(239, 27, 154)), ColorSequenceKeypoint.new(0.41, Color3.fromRGB(240, 14, 68)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(242, 13, 95))}
 UIGradient_5.Rotation = 1.8309999704360962
@@ -526,12 +537,14 @@ PlayerUsername.TextColor3 = Color3.fromRGB(255, 255, 255)
 PlayerUsername.TextSize = 11.000
 PlayerUsername.TextXAlignment = Enum.TextXAlignment.Left
 PlayerUsername.TextYAlignment = Enum.TextYAlignment.Top
+PlayerUsername.TextTruncate = Enum.TextTruncate.AtEnd
 
 UIGradient_6.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(52, 52, 52)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(88, 88, 88))}
 UIGradient_6.Parent = PlayerUsername
 
 PlanInfo.Name = "PlanInfo"
 PlanInfo.Parent = Section1
+PlanInfo.Visible = false
 PlanInfo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 PlanInfo.BorderColor3 = Color3.fromRGB(27, 42, 53)
 PlanInfo.BorderSizePixel = 0
@@ -589,10 +602,10 @@ KeyStatus.Parent = Section1
 KeyStatus.BackgroundTransparency = 1.000
 KeyStatus.BorderColor3 = Color3.fromRGB(27, 42, 53)
 KeyStatus.BorderSizePixel = 0
-KeyStatus.Position = UDim2.new(0, 10, 0, 66)
+KeyStatus.Position = UDim2.new(0, 20, 0, 66)
 KeyStatus.Size = UDim2.new(0, 59, 0, 14)
 KeyStatus.FontFace =  Font.new("rbxassetid://11702779409", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-KeyStatus.Text = "Key Status:"
+KeyStatus.Text = "Activation Status:"
 KeyStatus.TextColor3 = Color3.fromRGB(255, 255, 255)
 KeyStatus.TextSize = 12.000
 KeyStatus.TextXAlignment = Enum.TextXAlignment.Left
@@ -615,7 +628,7 @@ keyStatusInfoLabel.Parent = Section1
 keyStatusInfoLabel.BackgroundTransparency = 1.000
 keyStatusInfoLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
 keyStatusInfoLabel.BorderSizePixel = 0
-keyStatusInfoLabel.Position = UDim2.new(0, 67, 0, 66)
+keyStatusInfoLabel.Position = UDim2.new(0, 107, 0, 66)
 keyStatusInfoLabel.Size = UDim2.new(0, 59, 0, 14)
 keyStatusInfoLabel.FontFace =  Font.new("rbxassetid://11702779409", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
 keyStatusInfoLabel.Text = "Active"
@@ -627,41 +640,43 @@ UIGradient_9.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fr
 UIGradient_9.Rotation = 4.052000045776367
 UIGradient_9.Parent = keyStatusInfoLabel
 
-retoreKey.Name = "retoreKey"
-retoreKey.Parent = Section1
-retoreKey.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-retoreKey.BorderColor3 = Color3.fromRGB(27, 42, 53)
-retoreKey.BorderSizePixel = 0
-retoreKey.Position = UDim2.new(0, 9, 0, 126)
-retoreKey.Size = UDim2.new(0, 224, 0, 16)
+restoreKey.Name = "restoreKey"
+restoreKey.Parent = Section1
+restoreKey.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+restoreKey.BorderColor3 = Color3.fromRGB(27, 42, 53)
+restoreKey.BorderSizePixel = 0
+restoreKey.Position = UDim2.new(0, 9, 0, 126)
+restoreKey.Size = UDim2.new(0, 224, 0, 16)
+restoreKey.AutoButtonColor = false
+restoreKey.Text = ""
 
 restoreKeyLabel.Name = "restoreKeyLabel"
-restoreKeyLabel.Parent = retoreKey
+restoreKeyLabel.Parent = restoreKey
 restoreKeyLabel.BackgroundTransparency = 1.000
 restoreKeyLabel.BorderColor3 = Color3.fromRGB(27, 42, 53)
 restoreKeyLabel.BorderSizePixel = 0
-restoreKeyLabel.Position = UDim2.new(0, 60, 0, 0)
+restoreKeyLabel.Position = UDim2.new(0, 60, 0, 1)
 restoreKeyLabel.Size = UDim2.new(0, 117, 1, 0)
 restoreKeyLabel.FontFace =  Font.new("rbxassetid://11702779409", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
-restoreKeyLabel.Text = "Restore Key"
+restoreKeyLabel.Text = "Restore"
 restoreKeyLabel.TextColor3 = Color3.fromRGB(255, 197, 225)
 restoreKeyLabel.TextSize = 13
 
 timeIcon.Name = "timeIcon"
-timeIcon.Parent = retoreKey
+timeIcon.Parent = restoreKey
 timeIcon.BackgroundTransparency = 1.000
 timeIcon.BorderColor3 = Color3.fromRGB(27, 42, 53)
 timeIcon.BorderSizePixel = 0
-timeIcon.Position = UDim2.new(0, 75, 0, 3)
+timeIcon.Position = UDim2.new(0, 83, 0, 3)
 timeIcon.Size = UDim2.new(0, 10, 0, 10)
 timeIcon.Image = "http://www.roblox.com/asset/?id=17810156036"
 
 UIGradient_10.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(181, 62, 127)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(191, 82, 114))}
 UIGradient_10.Rotation = 1.3270000219345093
-UIGradient_10.Parent = retoreKey
+UIGradient_10.Parent = restoreKey
 
 UICorner_5.CornerRadius = UDim.new(0, 6)
-UICorner_5.Parent = retoreKey
+UICorner_5.Parent = restoreKey
 
 key.Name = "key"
 key.Parent = Section1
@@ -801,6 +816,15 @@ KEYdecFrame.Size = UDim2.new(0, 226, 0, 17)
 KEYdecFrame.ZIndex = 2
 KEYdecFrame.Image = "http://www.roblox.com/asset/?id=17810357482"
 
+KEYdecBlank.Name = "KEYdecBlank"
+KEYdecBlank.Parent = KEYdecFrame
+KEYdecBlank.BackgroundColor3 = Color3.fromRGB(23, 23, 23)
+KEYdecBlank.BorderColor3 = Color3.fromRGB(27, 42, 53)
+KEYdecBlank.BorderSizePixel = 0
+KEYdecBlank.Position = UDim2.new(0, 0, 0, 0)
+KEYdecBlank.Size = UDim2.new(0, 226, 0, 17)
+KEYdecBlank.ZIndex = 1
+
 _100.Name = "100%"
 _100.Parent = KEYdecFrame
 _100.BackgroundTransparency = 1.000
@@ -814,8 +838,11 @@ _100.Text = "100%"
 _100.TextColor3 = Color3.fromRGB(255, 207, 230)
 _100.TextSize = 14
 
-UICorner_10.CornerRadius = UDim.new(0, 4)
+UICorner_10.CornerRadius = UDim.new(0, 5)
 UICorner_10.Parent = KEYdecFrame
+
+utils.UICorner_10.CornerRadius = UDim.new(0, 5)
+utils.UICorner_10.Parent = KEYdecBlank
 
 Frame6.Name = "Frame 6"
 Frame6.Parent = Section1
@@ -826,16 +853,6 @@ Frame6.BorderSizePixel = 0
 Frame6.Position = UDim2.new(0, 147, 0, -13)
 Frame6.Size = UDim2.new(0, 124, 0, 54)
 Frame6.Image = "rbxassetid://17823807869"
-
-Glow.Name = "Glow"
-Glow.Parent = Section1
-Glow.BackgroundColor3 = Color3.fromRGB(218, 2, 67)
-Glow.BackgroundTransparency = 1.000
-Glow.BorderColor3 = Color3.fromRGB(27, 42, 53)
-Glow.BorderSizePixel = 0
-Glow.Position = UDim2.new(0, -6, 0, 78)
-Glow.Size = UDim2.new(0, 256, 0, 55)
-Glow.Image = "rbxassetid://17823872621"
 
 Featured.Name = "Featured"
 Featured.Parent = HTabHolder
@@ -1234,6 +1251,91 @@ UICorner_24.Parent = LOGAN
 
 UICorner_25.CornerRadius = UDim.new(0, 10)
 UICorner_25.Parent = Menu
+
+KeyTime.Name = "KeyTime"
+KeyTime.Parent = Section1
+KeyTime.BackgroundTransparency = 1.000
+KeyTime.BorderColor3 = Color3.fromRGB(27, 42, 53)
+KeyTime.BorderSizePixel = 0
+KeyTime.Position = UDim2.new(0, 75, 0, 80)
+KeyTime.Size = UDim2.new(0, 155, 0, 15)
+KeyTime.FontFace =  Font.new("rbxassetid://11702779409", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+KeyTime.Text = (function()
+    local url = "https://appleware.dev/api/v1/keys?k=" .. get_user_key()
+    local success, data = pcall(function()
+        return game:HttpGet(url)
+    end)
+
+    local initialExpirationTime
+
+    if success then
+        local jsonData = httpService:JSONDecode(data)
+            local expiresAt = jsonData.data.expiresAt
+            local year, month, day, hour, minute, second = expiresAt:match("(%d+)-(%d+)-(%d+)T(%d+):(%d+):(%d+)")
+            initialExpirationTime = os.time({
+                year = year,
+                month = month,
+                day = day,
+                hour = hour,
+                min = minute,
+                sec = second
+            })
+    elseif not success then 
+        keyStatusInfoLabel.Text = "Expired"
+        UIGradient_9.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(219, 37, 52)),ColorSequenceKeypoint.new(1.00, Color3.fromRGB(204, 18, 34))}
+        KEYdecFrame.Size = UDim2.new(0, 0, 0, 17)
+        _100.Text = "0%"
+        return "0hs - 0m"
+    end
+
+    local initialTimeDiff = initialExpirationTime - os.time()
+    local initialSizeX = 226
+
+    local function updateTime()
+        while true do
+            local success, data = pcall(function()
+                return game:HttpGet(url)
+            end)
+
+            if success then
+                    keyStatusInfoLabel.Text = "Active"
+                    UIGradient_9.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(65, 240, 156)),ColorSequenceKeypoint.new(1.00, Color3.fromRGB(20, 208, 129))}
+
+                    local currentTime = os.time()
+                    local timeDiff = initialExpirationTime - currentTime
+
+                    local hours = math.floor(timeDiff / 3600)
+                    local minutes = math.floor((timeDiff % 3600) / 60)
+                    local percentage = math.max(0, (timeDiff / initialTimeDiff) * 100)
+
+                    KeyTime.Text = hours .. "hs - " .. minutes .. "m"
+                    _100.Text = math.floor(percentage) .. "%"
+
+                    local newSizeX = initialSizeX * (percentage / 100)
+                    local finalSize = UDim2.new(0, newSizeX, 0, 17)
+
+                    tweenService:Create(KEYdecFrame, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = finalSize}):Play()
+            elseif not success then 
+                    keyStatusInfoLabel.Text = "Expired"
+                    UIGradient_9.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(219, 37, 52)),ColorSequenceKeypoint.new(1.00, Color3.fromRGB(204, 18, 34))}
+                    KeyTime.Text = "0hs - 0m"
+                    _100.Text = "0%"
+                    tweenService:Create(KEYdecFrame, TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 0, 0, 17)}):Play()
+           end
+
+            task.wait(60)
+        end
+    end
+
+    coroutine.wrap(updateTime)()
+
+    local initialHours = math.floor(initialTimeDiff / 3600)
+    local initialMinutes = math.floor((initialTimeDiff % 3600) / 60)
+    return initialHours .. "hs - " .. initialMinutes .. "m"
+end)()
+KeyTime.TextColor3 = Color3.fromRGB(255, 255, 255)
+KeyTime.TextSize = 15.000
+KeyTime.TextXAlignment = Enum.TextXAlignment.Left
 
 ETabHolder.Name = "ETabHolder"
 ETabHolder.Parent = Menu
@@ -1769,6 +1871,10 @@ openTween.Completed:Wait()
 utils.MainToggle.Visible = false
 end)
 
+restoreKey.MouseButton1Click:Connect(function()
+get_key_link()
+end)
+
 CTCzone.MouseButton1Click:Connect(function()
 Menu.Visible = false
 utils.MainToggle.Visible = true
@@ -2061,17 +2167,17 @@ end
 --end
 ---------- 
 function refreshScripts(scriptTbl)   
-    if #scriptTbl <= 0 then
-		print("not found")
-	else
-		print("found")
-	end 
+    --if #scriptTbl <= 0 then
+		--print("not found")
+	--else
+		--print("found")
+	--end 
 	 
    local NewUIGridLayoutCopy = UIGridLayout:Clone() 
 	scriptsfolder:ClearAllChildren() 
 	NewUIGridLayoutCopy.Parent = scriptsfolder
 	
-	addScripts(scriptTbl)
+	addScripts(scriptTbl)l
 end
 
 function addScripts(scriptTbl)
@@ -2175,3 +2281,42 @@ end)
 end
 
 drag_enable(utils.MainToggle)
+drag_enable(Menu)
+
+function _checkplan()
+local success, data = pcall(function()
+	return game:HttpGet("https://appleware.dev/api/v1/keys?k=" .. get_user_key())
+end)
+
+
+if success then 
+   local res = httpService:JSONDecode(data)
+   if res.data.isPremium == true then
+      PlanInfo.Visible = true
+      Frame6.Visible = true
+   else
+      PlanInfo.Visible = false
+      Frame6.Visible = false
+   end
+else
+   warn("Error attempting to call API: " .. data)
+end
+end
+
+_checkplan()
+
+task.spawn(function()
+for _,f in pairs(listfiles("AW_AutoExecute")) do
+loadstring(readfile(f))()
+end 
+end)
+
+function _hide()
+    for i, v in pairs(AppleWareiOS:GetDescendants()) do
+        if not v:IsDescendantOf(ETabHolder) then
+            v.Name = utils.newidentity() .. "_" .. tostring(math.random(1, 1000000))  
+        end
+    end
+end
+
+_hide()
