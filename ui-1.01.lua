@@ -3,6 +3,8 @@
 ----------------------------[] V/1.0.1 []-----------------------------------
 --------------------------------------------------------------------------------
 
+print(get_user_key())
+
 if gethui():FindFirstChild("AppleWareiOS") then
     gethui():FindFirstChild("AppleWareiOS"):Destroy()
 end
@@ -1261,7 +1263,7 @@ KeyTime.Position = UDim2.new(0, 75, 0, 80)
 KeyTime.Size = UDim2.new(0, 155, 0, 15)
 KeyTime.FontFace =  Font.new("rbxassetid://11702779409", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
 KeyTime.Text = (function()
-    local url = "https://appleware.dev/api/v1/keys?k=" .. get_user_key()
+    local url = "https://appleware.dev/api/v1/keys?k=" .. (get_user_key())
     local success, data = pcall(function()
         return game:HttpGet(url)
     end)
