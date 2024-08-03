@@ -604,7 +604,7 @@ code_stroke.Parent = codebox
 				CloseKey()
 				--print("authenticated")
 				utils.popup("Authenticated successfully. Loading...")
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/TakeModzz/Apple-Ware-UI/main/aw_ui.lua", true))()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/TableDevelopments/public/main/ui-test.lua", true))()
 			end)
 			else
 				Login.Visible = true
@@ -689,7 +689,7 @@ code_stroke.Parent = codebox
 	task.wait()
 	if(is_authenticated()) then
 		utils.popup("Authenticated successfully. Loading...")
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/TakeModzz/Apple-Ware-UI/main/aw_ui.lua", true))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/TableDevelopments/public/main/ui-test.lua", true))()
 	else
 		utils.popup("Key not authenticated, Please Activate your key.")
 	end
