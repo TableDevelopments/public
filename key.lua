@@ -204,7 +204,7 @@
 			pclose.Position = UDim2.new(0, 430, 0, 5)
 			pclose.Size = UDim2.new(0, 21, 0, 17)
 			pclose.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Medium, Enum.FontStyle.Normal) 
-			pclose.Text = "ï¿½"
+			pclose.Text = "x"
 			pclose.TextTransparency = 1
 			pclose.TextColor3 = Color3.fromRGB(255, 255, 255)
 			pclose.TextSize = 20.000
@@ -310,7 +310,7 @@
 	close.Position = UDim2.new(0, 431, 0, 8)
 	close.Size = UDim2.new(0, 21, 0, 17)
 	close.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Medium, Enum.FontStyle.Normal) 
-	close.Text = "Ã—"
+	close.Text = "X"
 	close.TextTransparency = 1
 	close.TextColor3 = Color3.fromRGB(255, 255, 255)
 	close.TextSize = 20.000
@@ -555,7 +555,7 @@ code_stroke.Parent = codebox
 
     Copy.MouseButton1Click:Connect(function()
         utils.popup("Copied to clipboard")
-	    seetclipboard(gethwid())
+	    setclipboard(gethwid())
     end)
     
 	minimize.MouseButton1Click:Connect(function()
