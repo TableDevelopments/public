@@ -492,7 +492,7 @@
 	Copy.ImageTransparency = 1
 	Copy.Image = "rbxassetid://17771919084"
 	
-	promocode.Visible = false -- Feature not implemented yet
+	promocode.Visible = true -- Feature not implemented yet
 	promocode.Name = "promocode"
 promocode.Parent = KeyMenu
 promocode.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
