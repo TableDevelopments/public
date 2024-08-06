@@ -204,7 +204,7 @@
 			pclose.Position = UDim2.new(0, 430, 0, 5)
 			pclose.Size = UDim2.new(0, 21, 0, 17)
 			pclose.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Medium, Enum.FontStyle.Normal) 
-			pclose.Text = "x"
+			pclose.Text = "×"
 			pclose.TextTransparency = 1
 			pclose.TextColor3 = Color3.fromRGB(255, 255, 255)
 			pclose.TextSize = 20.000
@@ -310,7 +310,7 @@
 	close.Position = UDim2.new(0, 431, 0, 8)
 	close.Size = UDim2.new(0, 21, 0, 17)
 	close.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Medium, Enum.FontStyle.Normal) 
-	close.Text = "X"
+	close.Text = "×"
 	close.TextTransparency = 1
 	close.TextColor3 = Color3.fromRGB(255, 255, 255)
 	close.TextSize = 20.000
@@ -426,7 +426,7 @@
 	support.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	support.BackgroundTransparency = 1.000
 	support.BorderSizePixel = 0
-	support.Position = UDim2.new(0, 422, 0, 114) -- 0, 387, 0, 114
+	support.Position = UDim2.new(0, 387, 0, 114) -- 0, 387, 0, 114
 	support.Selectable = false
 	support.Size = UDim2.new(0, 26, 0, 23)
 	support.AutoButtonColor = false
@@ -495,7 +495,6 @@
 	promocode.Visible = false -- Feature not implemented yet
 	promocode.Name = "promocode"
 promocode.Parent = KeyMenu
-promocode.Active = false
 promocode.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 promocode.BorderColor3 = Color3.fromRGB(27, 42, 53)
 promocode.BorderSizePixel = 0
@@ -555,8 +554,29 @@ code_stroke.Parent = codebox
 
     Copy.MouseButton1Click:Connect(function()
         utils.popup("Copied to clipboard")
-	    setclipboard(gethwid())
+	    seetclipboard(gethwid())
     end)
+    
+    promocode.MouseButton1Click:Connect(function()
+        if codebox.Visible then 
+		    codebox.Visible = false
+		else
+			codebox.Visible = true
+		end
+    end)
+    
+    codebox.FocusLost:Connect(function(enter)
+		if enter then 
+	        if verify_key(codebox.Text) then 
+				task.spawn(function()
+					CloseKey()
+					--print("authenticated")
+					utils.popup("Authenticated successfully. Loading...")
+					loadstring(game:HttpGet("https://raw.githubusercontent.com/TakeModzz/Apple-Ware-UI/main/aw_ui.lua", true))()
+				end)
+			end
+	    end
+     end)
     
 	minimize.MouseButton1Click:Connect(function()
 		if hidden == false then
