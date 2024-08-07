@@ -232,11 +232,11 @@
 	-- // PROPERTIES \\ --
 
 	MAIN_KEY.Name = "MAIN_KEY"
-	MAIN_KEY.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	MAIN_KEY.Parent = gethui()
 	MAIN_KEY.ResetOnSpawn = false
 
 	main.Name = "main"
-	main.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	main.Parent = gethui()
 	main.ResetOnSpawn = false
 
 	KeyMenu.Name = "KeyMenu"
