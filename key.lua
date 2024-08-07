@@ -512,7 +512,6 @@ gifticon.BorderSizePixel = 0
 gifticon.Position = UDim2.new(0, 5, 0, 3)
 gifticon.Size = UDim2.new(0, 17, 0, 17)
 gifticon.Image = "rbxassetid://18582971695"
-gifticon.Text = ""
 promo_stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 promo_stroke.Color = Color3.fromRGB(255, 255, 255)
 promo_stroke.Name = "promo_stroke"
