@@ -57,7 +57,7 @@
 	local UIGradient_3 = Instance.new("UIGradient")
 	local Copy = Instance.new("ImageButton")
 	local promocode = Instance.new("TextButton")
-	local gifticon = Instance.new("TextButton")
+	local gifticon = Instance.new("ImageButton")
 	local promo_stroke = Instance.new("UIStroke")
 	local promo_corner = Instance.new("UICorner")
 	local codebox = Instance.new("TextBox")
