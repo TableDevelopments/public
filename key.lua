@@ -598,7 +598,7 @@
 			if verify_key(inputbox.Text) then 
 				CloseKey()
 				utils.popup("Authenticated successfully. Loading...")
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/TableDevelopments/public/main/ui.lua", true))()
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/TakeModzz/Apple-Ware-UI/main/aw_ui.lua", true))()
 			else
 				Login.Visible = true
 				Loading.Visible = false
@@ -669,7 +669,7 @@
 	task.wait(3)
 	if(is_authenticated()) then
 		utils.popup("Authenticated successfully. Loading...")
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/TableDevelopments/public/main/ui.lua", true))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/TakeModzz/Apple-Ware-UI/main/aw_ui.lua", true))()
 		CloseKey()
 	else
 		utils.popup("Key not authenticated, Please Active your key.")
