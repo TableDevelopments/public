@@ -57,7 +57,7 @@
 	local UIGradient_3 = Instance.new("UIGradient")
 	local Copy = Instance.new("ImageButton")
 	local promocode = Instance.new("TextButton")
-	local gifticon = Instance.new("ImageButton")
+	local gifticon = Instance.new("ImageLabel")
 	local promo_stroke = Instance.new("UIStroke")
 	local promo_corner = Instance.new("UICorner")
 	local codebox = Instance.new("TextBox")
@@ -512,6 +512,7 @@ gifticon.BorderSizePixel = 0
 gifticon.Position = UDim2.new(0, 5, 0, 3)
 gifticon.Size = UDim2.new(0, 17, 0, 17)
 gifticon.Image = "rbxassetid://18582971695"
+
 promo_stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 promo_stroke.Color = Color3.fromRGB(255, 255, 255)
 promo_stroke.Name = "promo_stroke"
@@ -556,21 +557,14 @@ code_stroke.Parent = codebox
 	    seetclipboard(gethwid())
     end)
     
-    -- shitty function
-    function switch()
-            if codebox.Visible == false then 
-		    codebox.Visible = true
+    promocode.MouseButton1Click:Connect(function()
+        if codebox.Visible then 
+		    codebox.Visible = false
 		else
-			codebox.Visible = false
+			codebox.Visible = true
 		end
-	end
+    end)
     
-    gifticon.MouseButton1Click:Connect(function()
-        switch()
-    end)
-        promocode.MouseButton1Click:Connect(function()
-        switch()
-    end)
     codebox.FocusLost:Connect(function(enter)
 		if enter then 
 	        if verify_key(codebox.Text) then 
