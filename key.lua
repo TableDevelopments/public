@@ -268,7 +268,7 @@
 	KeyMenu.Position = UDim2.new(0.5, 0, 0.5, 0)
 	KeyMenu.Size = UDim2.new(0, 460, 0, 145)
 	KeyMenu.Visible = true
-	KeyMenu.ClipsDescendants = true
+	KeyMenu.ClipsDescendants = false
 
 	appleware.Name = "appleware"
 	appleware.Parent = KeyMenu
@@ -531,12 +531,13 @@ codebox.BorderSizePixel = 0
 codebox.ClipsDescendants = true
 codebox.Position = UDim2.new(0.708851576, 0, 1.04137933, 0)
 codebox.Size = UDim2.new(0, 133, 0, 20)
-codebox.Font = Enum.Font.Unknown
+codebox.Font = Enum.Font.
 codebox.PlaceholderColor3 = Color3.fromRGB(102, 102, 102)
 codebox.PlaceholderText = "Enter code..."
 codebox.Text = ""
 codebox.TextColor3 = Color3.fromRGB(230, 230, 230)
 codebox.TextSize = 12.000
+codebox.Position = UDim2.new(KeyMenu.AnchorPoint.X, -KeyMenu.Size.X.Offset * KeyMenu.AnchorPoint.X, KeyMenu.AnchorPoint.Y, KeyMenu.Size.Y.Offset * (1 - KeyMenu.AnchorPoint.Y) + 10)
 
 code_corner.CornerRadius = UDim.new(0, 6)
 code_corner.Name = "code_corner"
@@ -557,14 +558,18 @@ code_stroke.Parent = codebox
 	    seetclipboard(gethwid())
     end)
     
-    promocode.MouseButton1Click:Connect(function()
-        if codebox.Visible then 
-		    codebox.Visible = false
+    -- shitty function
+    function switch()
+            if codebox.Visible == false then 
+		    codebox.Visible = true
 		else
-			codebox.Visible = true
+			codebox.Visible = false
 		end
-    end)
+	end
     
+        promocode.MouseButton1Click:Connect(function()
+        switch()
+    end)
     codebox.FocusLost:Connect(function(enter)
 		if enter then 
 	        if verify_key(codebox.Text) then 
