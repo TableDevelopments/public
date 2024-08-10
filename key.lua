@@ -18,6 +18,14 @@
 
 
 	-- // INSTANCES \\ --
+	
+--	if not isfolder("AW_AutoExecute") then 
+--	    makefolder("AW_AutoExecute")
+--	end
+	
+	--if not isfolder("AW_Settings") then 
+	    --makefolder("AW_Settings")
+	--end 
 
 	local tweenService = game:GetService("TweenService")
 
@@ -29,14 +37,6 @@
 	local UIGradient = Instance.new("UIGradient")
 	local close = Instance.new("TextButton")
 	local minimize = Instance.new("TextButton")
-	local inputbox = Instance.new("TextBox")
-	local UIStroke = Instance.new("UIStroke")
-	local UICorner = Instance.new("UICorner")
-	local UIPadding = Instance.new("UIPadding")
-	local paste = Instance.new("ImageButton")
-	local pasteIcon = Instance.new("ImageLabel")
-	local UIStroke_2 = Instance.new("UIStroke")
-	local UICorner_2 = Instance.new("UICorner")
 	local loginkey = Instance.new("TextButton")
 	local Login = Instance.new("TextLabel")
 	local Key = Instance.new("ImageLabel")
@@ -52,11 +52,17 @@
 	local discordLogo = Instance.new("ImageLabel")
 	local UIStroke_3 = Instance.new("UIStroke")
 	local UICorner_5 = Instance.new("UICorner")
-	local supportText = Instance.new("TextLabel")
 	local keyIndicator = Instance.new("TextLabel")
 	local userkey = Instance.new("TextLabel")
 	local UIGradient_3 = Instance.new("UIGradient")
 	local Copy = Instance.new("ImageButton")
+	local promocode = Instance.new("TextButton")
+	local gifticon = Instance.new("ImageLabel")
+	local promo_stroke = Instance.new("UIStroke")
+	local promo_corner = Instance.new("UICorner")
+	local codebox = Instance.new("TextBox")
+	local code_corner = Instance.new("UICorner")
+	local code_stroke = Instance.new("UIStroke")
 	local hidden = false
 
 	local AW = {
@@ -135,8 +141,9 @@
 	} 
 
 	local utils = { 
-		popup = function(msg: string)
-
+		popup = function(msg: string, dur: number)
+		    dur = dur or 5
+		
 			local ppnotif = Instance.new("Frame")
 			local smallIcon = Instance.new("ImageLabel")
 			local infoslabel = Instance.new("TextLabel")
@@ -215,7 +222,6 @@
 
 			pclose.MouseButton1Click:Connect(function()
 				task.spawn(function()
-					for _,obj in pairs(ppnotif:GetDescendants()) do 
 						AW.fadeOut(ppnotif, 0.2) 
 						tweenService:Create(NTFS, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Thickness = 0}):Play() 
 						tweenService:Create(infoslabel, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1}):Play()
@@ -223,9 +229,21 @@
 						tweenService:Create(smallIcon, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 1}):Play()
 						task.wait(1)
 						ppnotif:Destroy()
-					end
 				end)
 			end)
+			
+			task.wait(dur)
+			   task.spawn(function()
+			         if ppnotif and ppnotif.BackgroundTransparency == 0 then
+		             AW.fadeOut(ppnotif, 0.2) 
+		             tweenService:Create(NTFS, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Thickness = 0}):Play()  
+		             tweenService:Create(infoslabel, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1}):Play() 
+		             tweenService:Create(pclose, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextTransparency = 1}):Play()
+		             tweenService:Create(smallIcon, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageTransparency = 1}):Play()
+		             task.wait(1)
+		             ppnotif:Destroy()
+		             end
+			   end)  
 		end
 	}
 
@@ -234,10 +252,12 @@
 	MAIN_KEY.Name = "MAIN_KEY"
 	MAIN_KEY.Parent = gethui()
 	MAIN_KEY.ResetOnSpawn = false
+	MAIN_KEY.DisplayOrder = 99
 
 	main.Name = "main"
 	main.Parent = gethui()
-	main.ResetOnSpawn = false
+	main.ResetOnSpawn = false 
+	main.DisplayOrder = 99
 
 	KeyMenu.Name = "KeyMenu"
 	KeyMenu.Parent = MAIN_KEY
@@ -309,73 +329,15 @@
 	minimize.TextTransparency = 1
 	minimize.ZIndex = 2
 
-	inputbox.Name = "inputbox"
-	inputbox.Parent = KeyMenu
-	inputbox.Active = true
-	inputbox.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-	inputbox.BorderSizePixel = 0
-	inputbox.Position = UDim2.new(0, 13, 0, 39)
-	inputbox.Selectable = false
-	inputbox.Size = UDim2.new(0, 387, 0, 33)
-	inputbox.ClearTextOnFocus = false
-	inputbox.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Medium, Enum.FontStyle.Normal) 
-	inputbox.PlaceholderColor3 = Color3.fromRGB(62, 62, 62)
-	inputbox.PlaceholderText = "Input key.."
-	inputbox.Text = ""
-	inputbox.TextColor3 = Color3.fromRGB(255, 255, 255)
-	inputbox.TextSize = 15.000
-	inputbox.TextWrapped = true
-	inputbox.TextXAlignment = Enum.TextXAlignment.Left
-	inputbox.TextTransparency = 1
-
-	UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	UIStroke.Color = Color3.fromRGB(32, 32, 32)
-	UIStroke.Parent = inputbox
-
-	UICorner.CornerRadius = UDim.new(0, 5)
-	UICorner.Parent = inputbox
-
-	UIPadding.Parent = inputbox
-	UIPadding.PaddingLeft = UDim.new(0.0299999993, 0)
-
-	paste.Name = "paste"
-	paste.Parent = KeyMenu
-	paste.Active = false
-	paste.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
-	paste.BorderSizePixel = 0
-	paste.Position = UDim2.new(0, 412, 0, 39)
-	paste.Selectable = false
-	paste.Size = UDim2.new(0, 40, 0, 33)
-	paste.AutoButtonColor = false
-	paste.BackgroundTransparency = 1
-
-	pasteIcon.Name = "pasteIcon"
-	pasteIcon.Parent = paste
-	pasteIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	pasteIcon.BackgroundTransparency = 1.000
-	pasteIcon.BorderSizePixel = 0
-	pasteIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-	pasteIcon.Size = UDim2.new(0, 25, 0, 25)
-	pasteIcon.ImageTransparency = 1
-	pasteIcon.Image = "http://www.roblox.com/asset/?id=17771926619"
-
-	UIStroke_2.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	UIStroke_2.Color = Color3.fromRGB(47, 47, 47)
-	UIStroke_2.Parent = paste
-	UIStroke_2.Thickness = 0 
-
-	UICorner_2.CornerRadius = UDim.new(0, 5)
-	UICorner_2.Parent = paste
-
 	loginkey.Name = "login key"
 	loginkey.Parent = KeyMenu
 	loginkey.Active = false
 	loginkey.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	loginkey.BackgroundTransparency = 1
 	loginkey.BorderSizePixel = 0
-	loginkey.Position = UDim2.new(0, 334, 0, 82)
+	loginkey.Position = UDim2.new(0, 107, 0, 45)
 	loginkey.Selectable = false
-	loginkey.Size = UDim2.new(0, 118, 0, 33)
+	loginkey.Size = UDim2.new(0, 246, 0, 33)
 	loginkey.AutoButtonColor = false
 	loginkey.Text = ""
 
@@ -384,10 +346,10 @@
 	Login.TextTransparency = 1
 	Login.BackgroundTransparency = 1.000
 	Login.BorderSizePixel = 0
-	Login.Position = UDim2.new(0, 40, 0, 8)
+	Login.Position = UDim2.new(0, 106, 0, 8)
 	Login.Size = UDim2.new(0, 57, 0, 18)
 	Login.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Medium, Enum.FontStyle.Normal) 
-	Login.Text = "Login"
+	Login.Text = "Check Authentication"
 	Login.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Login.TextSize = 15.000
 
@@ -411,7 +373,7 @@
 	Loading.Parent = loginkey
 	Loading.BackgroundTransparency = 1.000
 	Loading.BorderSizePixel = 0
-	Loading.Position = UDim2.new(0, 57, 0, 7)
+	Loading.Position = UDim2.new(0, 14, 0, 7)
 	Loading.Size = UDim2.new(0, 20, 0, 20)
 	Loading.Visible = false
 	Loading.Image = "http://www.roblox.com/asset/?id=17789052135"
@@ -422,9 +384,9 @@
 	actkey.Active = false
 	actkey.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
 	actkey.BorderSizePixel = 0
-	actkey.Position = UDim2.new(0, 162, 0, 82)
+	actkey.Position = UDim2.new(0, 107, 0, 85)
 	actkey.Selectable = false
-	actkey.Size = UDim2.new(0, 162, 0, 33)
+	actkey.Size = UDim2.new(0, 246, 0, 33)
 	actkey.AutoButtonColor = false
 	actkey.Text = ""
 	actkey.BackgroundTransparency = 1
@@ -434,7 +396,7 @@
 	ActLabel.Parent = actkey
 	ActLabel.BackgroundTransparency = 1.000
 	ActLabel.BorderSizePixel = 0
-	ActLabel.Position = UDim2.new(0, 45, 0, 8)
+	ActLabel.Position = UDim2.new(0, 75, 0, 8)
 	ActLabel.Size = UDim2.new(0, 95, 0, 18)
 	ActLabel.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Medium, Enum.FontStyle.Normal) 
 	ActLabel.Text = "Activate Key"
@@ -464,9 +426,9 @@
 	support.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	support.BackgroundTransparency = 1.000
 	support.BorderSizePixel = 0
-	support.Position = UDim2.new(0, 12, 0, 84)
+	support.Position = UDim2.new(0, 387, 0, 114) -- 0, 387, 0, 114
 	support.Selectable = false
-	support.Size = UDim2.new(0, 143, 0, 29)
+	support.Size = UDim2.new(0, 26, 0, 23)
 	support.AutoButtonColor = false
 	support.Text = ""
 
@@ -475,8 +437,8 @@
 	discordLogo.Parent = support
 	discordLogo.BackgroundTransparency = 1.000
 	discordLogo.BorderSizePixel = 0
-	discordLogo.Position = UDim2.new(0, 8, 0, 5)
-	discordLogo.Size = UDim2.new(0, 20, 0, 20)
+	discordLogo.Position = UDim2.new(0, 5, 0, 3)
+	discordLogo.Size = UDim2.new(0, 17, 0, 17)
 	discordLogo.Image = "http://www.roblox.com/asset/?id=17771966180"
 
 	UIStroke_3.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
@@ -486,18 +448,6 @@
 
 	UICorner_5.CornerRadius = UDim.new(0, 5)
 	UICorner_5.Parent = support
-
-	supportText.Name = "supportText"
-	supportText.Parent = support
-	supportText.TextTransparency = 1
-	supportText.BackgroundTransparency = 1.000
-	supportText.BorderSizePixel = 0
-	supportText.Position = UDim2.new(0, 33, 0, 6)
-	supportText.Size = UDim2.new(0, 101, 0, 18)
-	supportText.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Medium, Enum.FontStyle.Normal) 
-	supportText.Text = "Support Server"
-	supportText.TextColor3 = Color3.fromRGB(7, 80, 165)
-	supportText.TextSize = 15.000
 
 	keyIndicator.Name = "keyIndicator"
 	keyIndicator.Parent = KeyMenu
@@ -516,12 +466,13 @@
 	userkey.Parent = KeyMenu
 	userkey.BackgroundTransparency = 1.000
 	userkey.BorderSizePixel = 0
-	userkey.Position = UDim2.new(0, 57, 0, 122)
-	userkey.Size = UDim2.new(0, 38, 0, 16)
+	userkey.Position = UDim2.new(0, 65, 0, 122)
+	userkey.Size = UDim2.new(0, 80, 0, 16)
 	userkey.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Bold, Enum.FontStyle.Normal) 
 	userkey.Text = gethwid()
 	userkey.TextColor3 = Color3.fromRGB(255, 255, 255)
 	userkey.TextSize = 13.000
+	userkey.TextTruncate = Enum.TextTruncate.AtEnd
 	userkey.TextTransparency = 1
 	userkey.TextXAlignment = Enum.TextXAlignment.Left
 
@@ -534,19 +485,104 @@
 	Copy.Active = false
 	Copy.BackgroundTransparency = 1.000
 	Copy.BorderSizePixel = 0
-	Copy.Position = UDim2.new(0, 100, 0, 122)
+	Copy.Position = UDim2.new(0, 150, 0, 122)
 	Copy.Selectable = false
 	Copy.Size = UDim2.new(0, 15, 0, 15)
 	Copy.AutoButtonColor = false
 	Copy.ImageTransparency = 1
 	Copy.Image = "rbxassetid://17771919084"
+	
+	promocode.Visible = true -- Feature not implemented yet
+	promocode.Name = "promocode"
+promocode.Parent = KeyMenu
+promocode.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+promocode.BorderColor3 = Color3.fromRGB(27, 42, 53)
+promocode.BorderSizePixel = 0
+promocode.Position = UDim2.new(0, 422, 0, 114)
+promocode.Selectable = false
+promocode.Size = UDim2.new(0, 26, 0, 23)
+promocode.AutoButtonColor = false
+promocode.Text = ""
 
+gifticon.Name = "gifticon"
+gifticon.Parent = promocode
+gifticon.BackgroundTransparency = 1.000
+gifticon.BorderColor3 = Color3.fromRGB(27, 42, 53)
+gifticon.BorderSizePixel = 0
+gifticon.Position = UDim2.new(0, 5, 0, 3)
+gifticon.Size = UDim2.new(0, 17, 0, 17)
+gifticon.Image = "rbxassetid://18582971695"
+
+promo_stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+promo_stroke.Color = Color3.fromRGB(255, 255, 255)
+promo_stroke.Name = "promo_stroke"
+promo_stroke.Parent = promocode
+
+promo_corner.CornerRadius = UDim.new(0, 5)
+promo_corner.Name = "promo_corner"
+promo_corner.Parent = promocode
+
+codebox.Name = "codebox"
+codebox.Parent = MAIN_KEY
+codebox.Visible = false
+codebox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+codebox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+codebox.BorderSizePixel = 0
+codebox.ClipsDescendants = true
+codebox.Position = UDim2.new(0.708851576, 0, 1.04137933, 0)
+codebox.Size = UDim2.new(0, 133, 0, 20)
+codebox.FontFace = Font.new("rbxassetid://11702779409", Enum.FontWeight.Medium, Enum.FontStyle.Normal)
+codebox.PlaceholderColor3 = Color3.fromRGB(102, 102, 102)
+codebox.PlaceholderText = "Enter code..."
+codebox.Text = ""
+codebox.TextColor3 = Color3.fromRGB(230, 230, 230)
+codebox.TextSize = 12.000
+codebox.Position = UDim2.new(KeyMenu.Position.X.Scale, KeyMenu.Position.X.Offset + KeyMenu.Size.X.Offset / 2 - codebox.Size.X.Offset, KeyMenu.Position.Y.Scale, KeyMenu.Position.Y.Offset + KeyMenu.Size.Y.Offset / 2 + 10)
+
+code_corner.CornerRadius = UDim.new(0, 6)
+code_corner.Name = "code_corner"
+code_corner.Parent = codebox
+
+code_stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+code_stroke.Color = Color3.fromRGB(116, 116, 116)
+code_stroke.Name = "code_stroke"
+code_stroke.Parent = codebox
 
 	for _,obj in pairs(KeyMenu:GetDescendants()) do
 		AW.fadeIn(KeyMenu, 0.5)
 		AW.fadeIn(obj, 0.5)
 	end
 
+    Copy.MouseButton1Click:Connect(function()
+        utils.popup("Copied to clipboard")
+	    seetclipboard(gethwid())
+    end)
+    
+    -- shitty function
+    function switch()
+            if codebox.Visible == false then 
+		    codebox.Visible = true
+		else
+			codebox.Visible = false
+		end
+	end
+    
+        promocode.MouseButton1Click:Connect(function()
+        switch()
+    end)
+    codebox.FocusLost:Connect(function(enter)
+		if enter then 
+	        if verify_key(codebox.Text) then 
+				task.spawn(function()
+					CloseKey()
+					--print("authenticated")
+					utils.popup("Authenticated successfully. Loading...")
+					loadstring(game:HttpGet("https://raw.githubusercontent.com/TakeModzz/Apple-Ware-UI/main/aw_ui.lua", true))()
+				end)
+			end
+	    end
+     end)
+    
 	minimize.MouseButton1Click:Connect(function()
 		if hidden == false then
 			hidden = true
@@ -559,20 +595,11 @@
 		end
 	end)
 
-	inputbox.Focused:Connect(function()
-		tweenService:Create(UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Color = Color3.fromRGB(59, 59, 59)}):Play()
-	end)
-
-	inputbox.FocusLost:Connect(function()
-		tweenService:Create(UIStroke, TweenInfo.new(0.2, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Color = Color3.fromRGB(32, 32, 32)}):Play()
-	end)
-
 	local function CloseKey()
 		task.spawn(function()
 			local closeuiTween = tweenService:Create(KeyMenu, TweenInfo.new(0.7, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {Position = UDim2.new(KeyMenu.Position.X.Scale, KeyMenu.Position.X.Offset, KeyMenu.Position.Y.Scale, KeyMenu.Position.Y.Offset + 50)}) 
 			closeuiTween.Completed:Connect(function() 
 				MAIN_KEY:Destroy() 
-				print("closed")
 			end)
 			closeuiTween:Play() 
 			for _,obj in pairs(KeyMenu:GetDescendants()) do
@@ -589,28 +616,32 @@
 	loginkey.MouseButton1Click:Connect(function()
 		task.spawn(function()
 			local loadTween = tweenService:Create(loginkey, TweenInfo.new(0.7, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {BackgroundTransparency = 0.2})
-			Login.Visible = false
+			Key.Visible = false
 			Loading.Visible = true
 			local loadTween2 = tweenService:Create(Loading, TweenInfo.new(10, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Rotation = 999})
 			loadTween:Play()
 			loadTween2:Play()
 			task.wait(1)
-			if verify_key(inputbox.Text) then 
+			if(is_authenticated()) then 
+			task.spawn(function()
+				--if isfile("AW_Settings/key.txt") then delfile("AW_Settings/key.txt") end
+				--writefile("AW_Settings/key.txt", inputbox.Text)
 				CloseKey()
+				--print("authenticated")
 				utils.popup("Authenticated successfully. Loading...")
 				loadstring(game:HttpGet("https://raw.githubusercontent.com/TakeModzz/Apple-Ware-UI/main/aw_ui.lua", true))()
+			end)
 			else
-				Login.Visible = true
+				Key.Visible = true
 				Loading.Visible = false
 				tweenService:Create(loginkey, TweenInfo.new(0.7, Enum.EasingStyle.Quart, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
 				loadTween2:Cancel()
-				utils.popup("Key not authenticated, Please Active your key.")
+				utils.popup("Key not authenticated, Please Activate your key.")
 			end
 		end)
 	end)
 
 	support.MouseButton1Click:Connect(function()
-		print("DISCORD")
 		open_discord()
 	end)
 
@@ -618,13 +649,10 @@
 		utils.popup("Copied to clipboard")
 		get_key_link()
 	end)
-
-	paste.MouseButton1Click:Connect(function()
-		inputbox.Text = getclipboard()
-	end)
+	
 
 	--- [ DRAG ]
-
+	
 	local USERINPUTSERVICE = game:GetService("UserInputService")
 	local AIM = KeyMenu
 
